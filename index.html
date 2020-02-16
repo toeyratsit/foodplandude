@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>GumTidLor</title>
+	<link rel="stylesheet" type="text/css" href="https://jabont.com/jayss/jayss.css">
+	<style>
+		body,html{
+			background: vblack ;
+		}
+		.mobile{
+			width: 100%;
+			min-width: 320px;
+			max-width: 450px;
+			margin: auto;
+			position: relative;
+		}
+	</style>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<meta name="apple-mobile-web-app-title" content="GumTidLor">
+	<meta name="theme-color" content="#03A9F4">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="default">
+	<link rel="apple-touch-icon" href="icon.jpg">
+	<link rel="apple-touch-icon" sizes="72x72" href="icon.jpg">
+	<link rel="apple-touch-icon" sizes="114x114" href="icon.jpg">
+	<link rel="apple-touch-icon" href="icon.jpg">
+</head>
+<body class="bg-vblack">
+	<div class="mobile bg-white">
+		<div  id="header"  class="bg-black padding pst -fx -top -left wide t-center cl-vblack">
+			<h3 style="color:white;display: inline;margin: 1%;">EAT  </h3><h3 class="bg-orange" style="padding: 0.5%;display: inline-block;">HUB ? 🍕</h3>
+		</div>
+		<sp class="vl"></sp>
+		<sp class="vl"></sp>
+		<div class="padding" id="content">
+			<div id="theInputGroup">
+				<h2>คุณยังไม่มีคน</h2>
+			</div>
+			<sp class=""></sp>
+			<button class="btn wide size-l bg-orange" onclick="addMore()">ADD MENU</button>
+			<sp class="xl"></sp>
+		</div>
+		<sp class="xl"></sp>
+		<div class="bg-black pst -fx -bottom -left wide" id="panel" onclick="randomStudent()">
+			<h1 class="t-center cl-orange padding ">EAT RAI DEE !</h1>
+		</div>
+	</div>
+    <script type="text/javascript">
+        var food = ["🥦 Broccoli","🍄 Mushroom","🥜 Peanuts","🌰 Chestnut","🍞 Bread","🥐 Croissant","🥖 Baguette Bread","🥨 Pretzel","🥞 Pancakes","🧀 Cheese Wedge"];
+		if (localStorage.getItem("allStudents") === null) {
+			localStorage.setItem("allStudents", "[]");
+		}
+		allStudents = JSON.parse(localStorage.allStudents);
+		displayStudent();
+
+		function addMore(){
+			let thisStudent = prompt("🍲🥘🥪🍣🍔")
+			if (thisStudent != null) {
+				allStudents.push(thisStudent)
+				console.log(allStudents);
+				displayStudent();
+			}
+		}
+
+		function displayStudent(){
+			theInputGroup.innerHTML = "";
+			let i = 1;
+			for(aStudent of allStudents){
+				theInputGroup.innerHTML += `
+				<div class="bg-amber-1 padding wide" onclick="removeStudent(${i-1})">
+				${i}. ${aStudent}
+				</div>
+				<sp class="s"></sp>
+				`;
+				i++;
+			}
+			localStorage.setItem("allStudents", JSON.stringify(allStudents));
+
+		}
+		function randomStudent() {
+			let rand = Math.floor(Math.random() * food.length);
+            let thisStudent = food[rand];
+            allStudents.push(thisStudent)
+				console.log(allStudents);
+                displayStudent();
+		}
+
+		function removeStudent(index){
+			remove = allStudents.splice(index,1);
+			displayStudent();
+		}
+
+	</script>
+</body>
+</html>
